@@ -199,11 +199,12 @@
             <section id="fun-sec">
                 <h3 style="color: var(--primary); margin-bottom: 40px;">เลือกของขวัญของคุณ! 🎁</h3>
                 <div class="boxes-grid">
-                    <div class="gift-box" onclick="pickBox(this)">🎁</div>
-                    <div class="gift-box" onclick="pickBox(this)">🎁</div>
-                    <div class="gift-box" onclick="pickBox(this)">🎁</div>
-                    <div class="gift-box" onclick="pickBox(this)">🎁</div>
-                    <div class="gift-box" onclick="pickBox(this)">🎁</div>
+                    <!-- ใส่ index เพื่อระบุลำดับ -->
+                    <div class="gift-box" onclick="pickBox(this, 0)">🎁</div>
+                    <div class="gift-box" onclick="pickBox(this, 1)">🎁</div>
+                    <div class="gift-box" onclick="pickBox(this, 2)">🎁</div>
+                    <div class="gift-box" onclick="pickBox(this, 3)">🎁</div>
+                    <div class="gift-box" onclick="pickBox(this, 4)">🎁</div>
                 </div>
             </section>
 
@@ -246,11 +247,11 @@
         const target = "060469"; 
         const errorMsgs = ["รหัสผิดนะเจ้าคนดี 🥺", "จำไม่ได้หรอเนี่ย งอนละนะ! 😤", "เกือบถูกแล้ว ลองอีกนิดดด", "อ๊ะ! ผิดแล้วตัวแสบ 😜"];
 
-        // ลิสต์ของขวัญที่แก้ไขแล้ว
+        // รายการของขวัญเรียงลำดับ
         const giftList = [
             "มีพี่ปาล์มอยู่ด้วยทุกๆวัน",
             "พี่จะรักอ้ะทุกวัน",
-            "จะซื่อสัตย์กับอ้ะอาย",
+            "จะสัตย์กับอ้ะอาย",
             "จะไม่ทำให้อ้ะผิดหวัง",
             "จะซัพพอร์ทอ้ะทุกอย่าง"
         ];
@@ -336,20 +337,19 @@
             }
         }
 
-        function pickBox(el) {
+        // ปรับฟังก์ชันให้รับลำดับ (index)
+        function pickBox(el, index) {
             if(el.innerText === "✨") return;
             el.style.animation = 'none';
             el.offsetHeight;
             el.classList.add('box-selected-shake');
             setTimeout(() => {
-                // ระบบสุ่มของขวัญ
-                const randomPrize = giftList[Math.floor(Math.random() * giftList.length)];
+                // เลือกของขวัญตามลำดับที่ส่งมา
+                const prize = giftList[index];
                 
                 document.getElementById('photo-area').style.display = 'none';
                 document.getElementById('coupon-area').style.display = 'block';
-                
-                // แสดงข้อความนำหน้าตามที่พี่ต้องการ
-                document.getElementById('coupon-text').innerText = "ของขวัญชิ้นนี้คือ\n" + randomPrize;
+                document.getElementById('coupon-text').innerText = "ของขวัญชิ้นนี้คือ\n" + prize;
                 
                 document.getElementById('body-content').classList.add('modal-active');
                 document.getElementById('modal').style.display = 'flex';
