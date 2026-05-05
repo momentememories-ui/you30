@@ -125,7 +125,7 @@
         .ticket { width: 280px; background: white; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); border: 2px solid var(--primary); overflow: hidden; }
         .ticket-header { background: var(--primary); color: white; padding: 10px; font-size: 0.7rem; font-weight: 600; text-align: center; }
         .ticket-content { padding: 30px 20px; border-bottom: 2.5px dashed var(--secondary); text-align: center; }
-        .ticket-prize { font-size: 0.95rem; font-weight: 600; color: var(--primary); }
+        .ticket-prize { font-size: 0.95rem; font-weight: 600; color: var(--primary); white-space: pre-line; }
         .ticket-footer { font-size: 0.55rem; color: #bbb; padding: 8px; text-align: center; }
 
         nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.95); padding: 10px 25px; border-radius: 40px; display: flex; gap: 20px; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
@@ -246,6 +246,15 @@
         const target = "060469"; 
         const errorMsgs = ["รหัสผิดนะเจ้าคนดี 🥺", "จำไม่ได้หรอเนี่ย งอนละนะ! 😤", "เกือบถูกแล้ว ลองอีกนิดดด", "อ๊ะ! ผิดแล้วตัวแสบ 😜"];
 
+        // ลิสต์ของขวัญที่แก้ไขแล้ว
+        const giftList = [
+            "มีพี่ปาล์มอยู่ด้วยทุกๆวัน",
+            "พี่จะรักอ้ะทุกวัน",
+            "จะซื่อสัตย์กับอ้ะอาย",
+            "จะไม่ทำให้อ้ะผิดหวัง",
+            "จะซัพพอร์ทอ้ะทุกอย่าง"
+        ];
+
         function addNum(n) {
             if(pass.length < 6) {
                 pass += n;
@@ -333,10 +342,15 @@
             el.offsetHeight;
             el.classList.add('box-selected-shake');
             setTimeout(() => {
-                const prize = "มีพี่ปาล์มอยู่ด้วยทุกๆวัน"; 
+                // ระบบสุ่มของขวัญ
+                const randomPrize = giftList[Math.floor(Math.random() * giftList.length)];
+                
                 document.getElementById('photo-area').style.display = 'none';
                 document.getElementById('coupon-area').style.display = 'block';
-                document.getElementById('coupon-text').innerText = prize;
+                
+                // แสดงข้อความนำหน้าตามที่พี่ต้องการ
+                document.getElementById('coupon-text').innerText = "ของขวัญชิ้นนี้คือ\n" + randomPrize;
+                
                 document.getElementById('body-content').classList.add('modal-active');
                 document.getElementById('modal').style.display = 'flex';
                 setTimeout(() => { document.getElementById('modal').classList.add('active'); startFloatingHearts(); }, 10);
